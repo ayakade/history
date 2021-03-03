@@ -52,11 +52,14 @@ function NearbyPage({ location: { search: query } }) {
         <meta name="description" content="Description of Nearby" />
       </Helmet>
       <FormattedMessage {...messages.header} />
-      {coordinates}
-      <p>Within 2km we found these photos</p>
+
+      <p>Location: {coordinates}<br/>Within 2km we found these photos</p>
       <div className="container">
         <div className="mainPhoto">
-          <img src={"https://live.staticflickr.com/" + activePhoto.server + "/" + activePhoto.id + "_" + activePhoto.secret + "_c.jpg" } />
+          <img
+            src={"https://live.staticflickr.com/" + activePhoto.server + "/" + activePhoto.id + "_" + activePhoto.secret + "_c.jpg" }
+            alt={activePhoto.title}
+          />
           <p>{activePhoto.title}</p>
         </div>
 
@@ -69,7 +72,10 @@ function NearbyPage({ location: { search: query } }) {
           {photos.map((photo, index) => {
             return (
               <div key={index} className="thumbnail">
-                <img onClick={() => setActivePhoto(photo)} src={"https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_t.jpg" } />
+                <img
+                  onClick={() => setActivePhoto(photo)} src={"https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_t.jpg" }
+                  alt={photo.title}
+                />
                 <p>{photo.title}</p>
                 {/* <Link to="/">AlbumViewPage</Link> */}
               </div>
