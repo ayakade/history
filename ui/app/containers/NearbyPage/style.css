@@ -1,0 +1,50 @@
+.container {
+  padding: 50px;
+}
+
+.mainPhoto {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.mainPhoto p {
+  font-size: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: -10px;
+}
+
+.photoList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.thumbnail {
+  width: 20%;
+  border: #fff 1px solid;
+  margin: 20px 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.thumbnail:hover {
+  width: 23%;
+  border:  #fff 5px solid;
+  transition: 0.3s;
+}
+
+.thumbnail img {
+  width: 200px;
+  height: auto;
+}
+
+.thumbnail img:hover {
+  width: 250px;
+  transition: 0.3s;
+}
