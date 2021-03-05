@@ -30,18 +30,18 @@ function NearbyPage({ location: { search: query } }) {
 
   const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&lat=${lat}&lon=${lon}&radius=${radius}&format=json&nojsoncallback=1`;
 
+  // photo lists
   const [photos, setPhotos] = useState([]);
-  // set default active photo
-  const [activePhoto, setActivePhoto] = useState({ "id": "50983182567", "owner": "13032456@N05", "secret": "32384b7446", "server": "65535", "farm": 66, "title": "Coast Mountain Bus Company", "ispublic": 1, "isfriend": 0, "isfamily": 0 }
-  );
+  // active (big display) photo
+  const [activePhoto, setActivePhoto] = useState({});
 
   useEffect(() => {
     fetch(url)
     .then(res => res.json())
     .then(data => {
-      setPhotos(data.photos.photo)
-      // setActivePhoto(photos[0])
-      // setActivePhoto(data.photos.photo[0])
+      setPhotos(data.photos.photo);
+      // set 1st photo from photolist as a default active photo
+      setActivePhoto(data.photos.photo[0]);
     })
   }, []);
 
@@ -73,11 +73,11 @@ function NearbyPage({ location: { search: query } }) {
             return (
               <div key={index} className="thumbnail">
                 <img
-                  onClick={() => setActivePhoto(photo)} src={"https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_t.jpg" }
+                  onClick={() => setActivePhoto(photo)}
+                  src={"https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_t.jpg" }
                   alt={photo.title}
                 />
                 <p>{photo.title}</p>
-                {/* <Link to="/">AlbumViewPage</Link> */}
               </div>
             )
           })}
