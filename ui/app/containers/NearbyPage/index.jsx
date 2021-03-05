@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
 
 import messages from './messages';
 
@@ -31,19 +30,44 @@ function NearbyPage({ location: { search: query } }) {
   const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api_key}&lat=${lat}&lon=${lon}&radius=${radius}&format=json&nojsoncallback=1`;
 
   // photo lists
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState(null);
   // active (big display) photo
   const [activePhoto, setActivePhoto] = useState({});
+  // error
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      setPhotos(data.photos.photo);
-      // set 1st photo from photolist as a default active photo
-      setActivePhoto(data.photos.photo[0]);
-    })
+      .then(res => res.json())
+      .then(data => {
+        // if succeeded
+        if (data.stat !== 'fail') {
+        setPhotos(data.photos.photo);
+        // set 1st photo from photolist as a default active photo
+        setActivePhoto(data.photos.photo[0]);
+        } else {
+          // if unsucceeded
+          setError(data.message);
+        }
+      })
+      .catch(error => (
+        <div className="error">
+          <h1>Ooops, something went wrong :(</h1>
+          <p>{error}</p>
+        </div>
+      ));
+    return null;
   }, []);
+
+  // if there's no photo found, give an error message
+  if (!photos) {
+    return (
+      <div className="error">
+        <h1>Ooops, something went wrong :(</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <article>
