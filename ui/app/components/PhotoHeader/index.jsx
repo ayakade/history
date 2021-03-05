@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import A from '../A';
 
+// import style
+import './index.css';
+
 function titleCase(str) {
   return decodeURI(
     str
@@ -59,7 +62,9 @@ function PhotoHeader({ currentMemory }) {
 
   return [
     <H4 key="headerCity">
-      <b>{city}</b> (<i>{`${long}, ${lat}`}</i>)
+      <a class="photoLink" href={`/nearby?coordinates=${lat},${long}`}>
+        <b>{city}</b> (<i>{`${long}, ${lat}`}</i>)
+      </a>
     </H4>,
     <P key="headerLocation">
       {location} <LinkToReference reference={reference} />
