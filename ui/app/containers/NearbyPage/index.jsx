@@ -55,9 +55,9 @@ function NearbyPage({ location: { search: query } }) {
 
       <p>Location: {coordinates}<br/>Within 2km we found these photos</p>
       <div className="container">
-        <div className="mainPhoto">
+        <div className="largePhoto">
           <img
-            src={"https://live.staticflickr.com/" + activePhoto.server + "/" + activePhoto.id + "_" + activePhoto.secret + "_c.jpg" }
+            src={`https://live.staticflickr.com/${activePhoto.server}/${activePhoto.id}_${activePhoto.secret}_c.jpg`}
             alt={activePhoto.title}
           />
           <p>{activePhoto.title}</p>
@@ -69,18 +69,22 @@ function NearbyPage({ location: { search: query } }) {
           </div>
 
           <div className="photoList">
-          {photos.map((photo, index) => {
-            return (
-              <div key={index} className="thumbnail">
-                <img
-                  onClick={() => setActivePhoto(photo)}
-                  src={"https://live.staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_t.jpg" }
-                  alt={photo.title}
-                />
-                <p>{photo.title}</p>
-              </div>
-            )
-          })}
+          {photos.map(photo => (
+            <div
+              // change main photo when photo is clicked
+              onClick={() => setActivePhoto(photo)}
+              // chenge main photo when photo is highlighted / hover
+              onMouseEnter={() => setActivePhoto(photo)}
+              key={photo.id}
+              className={photo.id === activePhoto.id ? 'active thumbnail' : 'thumbnail'}
+            >
+              <img
+                src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_t.jpg`}
+                alt={photo.title}
+              />
+              <p>{photo.title}</p>
+            </div>
+          ))}
           </div>
         </div>
 
