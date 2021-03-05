@@ -7,4 +7,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the NearbyPage container!',
   },
+
+  error: {
+    id: `${scope}.error`,
+    defaultMessage: 'Ooops, something went wrong :(',
+  }
 });
